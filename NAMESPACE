@@ -1,0 +1,7 @@
+
+importFrom("stats", "dbeta", "runif", "var", "optim")
+importFrom("graphics", "axis", "legend", "lines")
+S3method(plot,mleHse)
+
+# Export everything.
+exportPattern("*")

@@ -1,0 +1,149 @@
+
+16/04/2020
+Initial implementation.
+
+Version number 0.0-1.
+
+17/04/2020
+Tweaked mehse() (replaced "n" by "topn").
+Tweaked mlehse(); added a "start" argument, defaulting
+to the mehse() estimates; added an "sd" attribute to the
+returned value.
+
+Adjusted the help appropriately.
+
+Incremented the version number to 0.0-2.
+
+17/04/2020
+Changed the title in DESCRIPTION to "title case".
+Removed spurious/unnecessary keywords from the help
+files.
+
+Incremented the version number to 0.0-3.
+
+18/04/2020
+Adjusted mehse() and mlehse() so as to allow missing values
+in the vector x of observations.
+
+Adjusted dhse() so as to allow missing values amongst the entries
+of the first argument "i".
+
+Made appropriate modifications to the help files.
+
+NOTE: phse() and qhse() needed no adjustment; they already handled
+missing values amongst the entries of their first arguments ("x"
+and "p" respectively).
+
+Incremented the version number to 0.0-4.
+
+22/04/2020
+Added functions expValHse() and varHse() to calculate
+the mean and variance of an hse distribution.
+
+Incremented the version number to 0.0-5.
+
+26/04/2020
+Got rid of the dependence of mlehse() on MASS:fitdistr(), which seemed
+to fuck things.  Instead implemented a roll-your-own call to optim().
+
+Incremented the version number to 0.0-6.
+
+27/04/2020
+Added "zero origin" capability, to deal with distributions
+on {0, 1, 2, ..., topn} rather than on {1, 2, ..., topn}.
+The argument zeroOrigin defaults to FALSE.
+
+Added an example in the help for mlehse() in which an hse
+distribution is fitted to a sample from a binomial distribution
+and the probabilities are compared graphically.
+
+Incremented the version number to 0.0-7.
+
+30/04/2020
+Changed the argument lists of expValHse() and varHse() from
+alpha, beta, ... to pars, ... (where pars is of course the
+vector with entries alpha and beta).
+
+Incremented the version number to 0.0-8.
+
+30/04/2020
+Gave the object returned by mlehse() the class "mlehse".
+Gave this object attributes "topn" and "zeroOrigin".
+Wrote a plot method plot.mlehse() to plot such objects.
+
+Incremented the version number to 0.0-9.
+
+18/05/2020
+Changed the default value of "eps" in mlehse() from
+sqrt(.Machine$double.eps) to 0.001.  (The former was overkill,
+and I foresaw its causing trouble in the context of
+hmmHse::hmm().)
+
+Corrected a mild omission in the help for mlehse().  (It said
+the data were between 1, and topn; will be between 0 and topn if
+zeroOrigin is TRUE.)
+
+02/10/2020 --- 18/10/2020
+Added the function plotHse() to plot the hse probability
+function given the appropriate parameters.
+
+Adjusted plot.mlehse() to call upon plotHse() to do the heavy
+lifting.
+
+Wrote help for plotHse() and adjusted the help for plot.mlehse().
+
+Changed the name "zeroOrigin" to "zeta" throughout all of the code
+and the help files.
+
+Incremented the version number to 0.0-10 (18/10/2020).
+
+19/10/2020
+Re-did the moment estimating function mehse() using my
+new insight that the normalising constant is approximatel
+n + 2, so that I no longer have to pretend that it is equal
+to 1.  (Can't for the life of me figure out why this pretense
+seemed to work reasoably well; it's utter nonsense!)
+
+Changed the argument lists of expValHse() and varHse() to use
+alpha and beta rather than "pars" (where pars[1] = alpha and
+pars[2] = beta).
+
+Incremented the version number to 0.0-11.
+
+03/11/2020
+Adjusted plot.mlehse() (now plot.mleHse()) to have xlim
+and ylim arguments (defaulting to their old hard-wired values).
+
+07/11/2020
+Adjusted function names to use "saddleback" structure.  I.e.
+change the name of mlehse() to mleHse(), that of mehse() to
+meHse() and plot.mlehse() to plot.mleHse().  The class of the
+object returned by mleHse() is changed from "mlehse" to "mleHse".
+
+Adjusted the help for mleHse() to point out the fact that the
+object returned is of class "mleHse".
+
+Incremented the version number to 0.0-12.
+
+23/11/2020
+
+Changed names of argument "topn" and variable "botn" to
+"ntop" and "nbot" respectively.
+
+Incremented the version number to 0.0-13.
+
+28/11/2020
+
+Adjusted help files, adding advice on the choice of "ntop"
+according to whether the data have no theoretical upper bound,
+a known theoretical upper bound, or neither (in which case
+it is expedient to take "ntop" to be the maximum of the observed
+data).  Based on advice from Russell Millar.
+
+Augmented the examples for mleHse() to include data simulated from
+a Poisson distribution (illustrating the setting in which the data
+have no theoretical upper bound).
+
+Added a "tikx" argument to plot.mleHse().
+
+Incremented the version number to 0.0-14.
