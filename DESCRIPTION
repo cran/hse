@@ -1,21 +1,23 @@
 Package: hse
-Version: 0.0-14
-Date: 2020-11-28
+Version: 0.0-26
+Date: 2021-01-03
 Title: The hse Distribution
 Author: Rolf Turner <r.turner@auckland.ac.nz>
 Maintainer: Rolf Turner <r.turner@auckland.ac.nz>
 Description: Density (probability), distribution, inverse
 	distribution (quantile) and random data generation
 	functions for the hse ("hope springs eternal") distribution.
-	Functions to calculate rough moment estimates, and maximum
-	likelihood estimates of the parameters of this distribution.
-	Functions to plot the probabilities of the distribution,
-	given the parameter values, and to plot the fitted
-	probabilities given a maximum likelihood fit.
+	Maximum likelihood estimation of parameters.  Plotting of
+	the probability mass function, from specified parameters or
+	from a maximum likelihood fit, and of the likelihood surface.
+	Fisher information, different estimates of the hessian of the
+	log likelihood and Monte Carlo estimation of the covariance
+	matrix of the maximum likelihood parameter estimates.
+	Goodness of fit tests.
 Depends: R (>= 3.2.2)
 Suggests: hmm.discnp
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2020-11-27 23:25:47 UTC; rolf
+Packaged: 2021-01-05 03:24:18 UTC; rolf
 Repository: CRAN
-Date/Publication: 2020-11-30 11:30:02 UTC
+Date/Publication: 2021-01-06 09:20:02 UTC

@@ -116,7 +116,7 @@ and ylim arguments (defaulting to their old hard-wired values).
 
 07/11/2020
 Adjusted function names to use "saddleback" structure.  I.e.
-change the name of mlehse() to mleHse(), that of mehse() to
+changed the name of mlehse() to mleHse(), that of mehse() to
 meHse() and plot.mlehse() to plot.mleHse().  The class of the
 object returned by mleHse() is changed from "mlehse" to "mleHse".
 
@@ -147,3 +147,170 @@ have no theoretical upper bound).
 Added a "tikx" argument to plot.mleHse().
 
 Incremented the version number to 0.0-14.
+
+02/12/2020
+
+Corrected a typo in hse.Rd ("zeroOrigin" should have been "zeta").
+Spotted by Duncan Murdoch.
+
+Adjusted dhse() so that it handles its "i" argument in a manner more
+consistent with that of other "d" functions in R (e.g.  dbinom()).
+Suggested by Duncan Murdoch.  Added a note to this effect in the
+help file hse.Rd.
+
+Augmented mleHse() so that it supplies (as attributes of the
+returned value) the maximised log likelihood ("log.like"), the
+estimated covariance matrix of the parameter estimates ("covMat")
+and the number of data in the data set ("ndata").
+
+Added a simulate.mleHse() method.
+
+Made expValHse() and varHse() generic functions, with default
+and "mleHse" methods.
+
+Incremented the version number to 0.0-15.
+
+03-05/12/2020
+
+Added "utility" functions llPlot(), dfltHess(), hhHess()
+and mcCovMat.
+
+Changed dhse() to calculate its values "directly" rather
+than calling upon dbeta().
+
+Added function grad() and hess() to calculate the gradient
+and hessian of the log likelihood analytically.  Modified
+mleHse() to make use of these functions.
+
+Modified mleHse() to append to the returned value attributes
+"eps" (the value of the lower parameter bound that was used).
+Changed the attribute "ndata" to be the number of *non-missing*
+values in the data.  Changed the order of the arguments of
+mleHse() slightly.  (Put "zeta" where it *should* be, right
+after "ntop".)
+
+Incremented the version number to 0.0-16.
+
+06/12/2020
+
+Added utilities vcov.mleHse(), logLik.mleHse() and ndata().
+
+Incremented the version number to 0.0-17.
+
+07/12/2020
+
+Amended mleHse() to use method="BFGS" rather than "L-BFGS-B".
+Imposing a lower bound on the parameters is no longer required.
+Removed the "eps" argument.
+
+Note that calculation of the hessian by analytic means is retained.
+The call to optim() does not involve the "hessian" argument, so
+that this argument is left equal to its default value of FALSE.
+The analytic value of the hessian seems to agree almost exactly
+(to within about +/- 5e-7 in a small test) so this doesn't really
+matter, but it might (???) save a few nanoseconds of computing time!
+
+Created a standalone function aHess() to compute the hessian
+analytically from an "mleHse" object and the corresponding data set.
+Just because I could. :-)
+
+Removed the functions dfltHess(), hhHess() and mcCovmat() since they
+are no longer needed (and the latter function --- mysteriously ---
+does not work, anyway).  Removed the corresponding help files.
+
+Change the default values of "alim" and "blim" in llPlot() to
+be c(0,10), since we no longer have to shy away from 0.
+
+Added example with negative parameters to the help for llPlot().
+Added example with negative parameters to the help for plotHse().
+
+Incremented the version number to 0.0-18.
+
+08/12/2020
+
+Put back the functions dftlHess() (renaming it to nHess() ---
+numeric hessian) and mcCovmat().  The latter *does* work (!!!)
+under the new regimen under which parameters are allowed to be
+negative and constrained maximisation of the likelihood is not
+required.  Adjusted the examples.  Also adjusted aHess() and
+its help.
+
+Incremented the version number to 0.0-19.
+
+09/12/2020
+
+Added the function finfo() (Fisher information), essentially the
+same thing as aHess() execept that the parameters are specified
+individually rather than being extracted from an "mleHse" object.
+
+Amended hess() to use an argument "ndata", rather than "x".  The only
+used made of "x" was to provide the value of "ndata".  Put the
+"ndata" argument last in the argument list (whereas "x" was first).
+
+Correspondingly addjusted the call to hfun() (the wrapper for hess())
+in mleHse().
+
+Incremented the version number to 0.0-20.
+
+10/12/2020
+
+Put in "correction factor" (ndata - 3)/ndata for the hessian
+in aHess(), nHess() and finfo() and (the other way up) ndata/(ndata-3)
+for the covariance matrix in mleHse().
+
+The previous results produced a "lower bound" for the covariance
+matrix.  The subtrahend 3 is mysterious.  Intuitively (???) it should
+be 2, but that does not correct sufficiently, and in some experiments
+3 seems to work.  Go figure.
+
+Incremented the version number to 0.0-21.
+
+11/12/2020
+
+Put a lower bound of .Machine$double.eps^0.25 on "s2" in
+meHse(), to prevent division by zero (which gives Inf values
+for the estimates and optim() doesn't like these.
+
+Put an upper bound of "UB", defaulting to 10, on the starting
+values (when these are supplied by meHse()).  It seems that when
+the starting values are too large (it is not clear *how* large)
+optim() throws an error.
+
+Incremented the version number to 0.0-22.
+
+14/12/2020
+
+Got rid of the stupid ndata/(ndata - 3) correction factor introduced
+in version 0.0-21. It makes no sense whatever; my thinking was muddled,
+the factor makes no sense whatever, and its apparent success in a
+particular instance seems to have been just a matter of luck.
+
+Replaced it by 1 + 16/ndata which was derived by fitting a linear
+model to an appropriate data set generated via simulation.  This
+new factor probably doesn't make much sense either.  It is invoked
+only if the "adjust" argument of aHess(), nHess(), finfo() and
+mleHse() is TRUE.  The default is FALSE.
+
+Incremented the version number to 0.0-23.
+
+15/12/2020
+
+Added the function gof() to effect goodness of fit tests.
+
+Incremented the version number to 0.0-24.
+
+02/01/2021
+
+Backed out the "adjust" argument from aHess(), nHess(), finfo()
+and mleHse().  It's bullshit.
+
+Incremented the version number to 0.0-25.
+
+03/01/2021
+
+Added a "seed" argument to mcCovMat() and gave the returned
+value an attribute "seed".
+
+Fixed several glitches in the help for mcCovMat() and mleHse().
+
+Incremented the version number to 0.0-26.

@@ -1,18 +1,25 @@
 \name{expValHse}
 \alias{expValHse}
+\alias{expValHse.mleHse}
+\alias{expValHse.default}
 \title{
-    Expected value of the hse distribution.
+    Expected value of an hse distribution.
 }
 \description{
     Calculate the expected value (theoretical mean) of a
-    random variable having an hse distriution.
+    random variable having an hse distribution.
 }
 \usage{
-expValHse(alpha, beta, ntop, zeta=FALSE)
+expValHse(ao,...)
+\method{expValHse}{mleHse}(ao,...)
+\method{expValHse}{default}(ao, beta, ntop, zeta=FALSE,...)
 }
 \arguments{
-  \item{alpha}{
-  See \code{\link{dhse}()}.
+  \item{ao}{
+  For the \code{"mleHse"} method this argument is an object of class
+  \code{"mleHse"} as returned by \code{\link{mleHse}()}.  For the
+  default method it is a numeric scalar playing the role of
+  \code{alpha} (see \code{\link{dhse}()}).
 }
   \item{beta}{
   See \code{\link{dhse}()}.
@@ -23,8 +30,24 @@ expValHse(alpha, beta, ntop, zeta=FALSE)
   \item{zeta}{
   See \code{\link{dhse}()}.
 }
+  \item{\dots}{
+  Not used.
+}
 }
 \details{
+   For the \code{"mleHse"} method, the single argument should really
+   be called (something like) \dQuote{\code{object}} and for the
+   default method the first argument should be called \code{alpha}.
+   However but it had the argument lists must satisfy
+   the restrictions that \dQuote{\emph{A method must have all the
+   arguments of the generic, including \dots if the generic does.}}
+   and \dQuote{\emph{A method must have arguments in exactly the
+   same order as the generic.}}
+   
+   For the \code{"mleHse"} method, the values of \code{alpha},
+   \code{beta}, \code{ntop} and \code{zeta} (passed to \code{dhse()})
+   are extracted from the attributes of \code{ao}.
+
    The expected value of an hse distribution is theoretically
    intractable but is readily calculable numerically as
    \deqn{\sum x \times \Pr(X=x)}{sum(x * Pr(X=x))}.
@@ -41,4 +64,10 @@ random variables with the given parameters.
 }
 \examples{
    expValHse(3,4,15)
+   X   <- hmm.discnp::Downloads
+   fit <- mleHse(X,ntop=15,zeta=TRUE)
+   expValHse(fit)
 }
+\keyword{math}
+\keyword{univar}
+\concept{expected value}

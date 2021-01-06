@@ -64,6 +64,10 @@ plotHse(0.1,3,14,TRUE,col="blue",main="A royal plot")
 plotHse(0.1,0.3,14,TRUE,col="green",main="An ecological plot")
 plotHse(2,3,14,FALSE,xlim=c(0,15))
 plotHse(2,3,14,FALSE,xlim=c(0,15),tikx=3*(0:5))
+par(mfrow=c(2,1))
+plotHse(2,2,5,FALSE,main=bquote(paste(alpha == 2,", ",beta == 2)),col="red")
+plotHse(-2,-2,5,FALSE,main=bquote(paste(alpha == -2,", ",beta == -2)),col="blue")
+
 }
 
 \keyword{ hplot }
