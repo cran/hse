@@ -314,3 +314,26 @@ value an attribute "seed".
 Fixed several glitches in the help for mcCovMat() and mleHse().
 
 Incremented the version number to 0.0-26.
+
+Appeared on CRAN 07/01/2021.
+
+07/01/2021
+Corrected a distressingly large number of typos in the help
+files, which I had not noticed (psigh!) until the package had
+appeared on CRAN.  Removed the help file for meHse() and
+and added meHse() to the list of undocumented functions in
+hse-internal.Rd.  (This was done to make reality conform to the
+assertion in the paper on the hse distribution that has been
+submitted for publication.)
+
+Incremented the version number to 0.0-27.
+
+29/04/2021
+This package is now deprecated or "retired".  Its replacement
+"dbd" should be used instead.
+
+No functions or data are currently provided except for the
+First() function which advises users to install and use
+the dbd package.
+
+Incremented the version number to 0.0-28.
